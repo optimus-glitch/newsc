@@ -1,0 +1,24 @@
+#!/bin/bash
+clear
+vp=$(vnstat | sed -n '3p' | awk '{print $1}' | grep -o '[^:]*')
+vnstat -i ${vp} >/etc/t1
+bulan=$(date +%b)
+tahun=$(date +%y)
+
+pola=$(grep -wc ${bulan} /etc/t1 > /dev/null && echo "$bulan '$tahun")
+data=$(vnstat -i ${vp} | grep "$pola")
+
+rx=$(echo "$data" | awk '{print $3}')
+rxv=$(echo "$data" | awk '{print $4}')
+tx=$(echo "$data" | awk '{print $6}')
+txv=$(echo "$data" | awk '{print $7}')
+mt=$(echo "$data" | awk '{print $9}')
+mtv=$(echo "$data" | awk '{print $10}')
+
+a=$(echo "$rx $rxv" | sed 's/MiB/MB/;s/GiB/GB/;s/TiB/TB/')
+b=$(echo "$tx $txv" | sed 's/MiB/MB/;s/GiB/GB/;s/TiB/TB/')
+c=$(echo "$mt $mtv" | sed 's/MiB/MB/;s/GiB/GB/;s/TiB/TB/')
+
+echo "${a:-0 B}" > /etc/usage1
+echo "${b:-0 B}" > /etc/usage2
+echo "${c:-0 B}" > /etc/usage3

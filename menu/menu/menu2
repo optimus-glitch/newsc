@@ -1,0 +1,65 @@
+#!/bin/bash
+exit_clean() { echo " Dihentikan"; exit 0; }
+trap exit_clean SIGINT
+
+engkok=$0
+REPOKU="https://izin.vmessh.cloud"
+REPOSC="https://iam.scvpn.cloud"
+biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
+colornow=$(cat /etc/alawivpn/theme/color.conf)
+N='\e[0m'
+R='\e[1;91m'
+G='\e[1;92m'
+Y='\e[1;93m'
+W='\e[1;97m'
+U="$(cat /etc/alawivpn/theme/$colornow | grep -w "TEXT" | cut -d: -f2|sed 's/ //g')"
+O="$(cat /etc/alawivpn/theme/$colornow | grep -w "BG" | cut -d: -f2|sed 's/ //g')"
+ipsaya=$(wget -qO- ipv4.icanhazip.com)
+data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
+date_list=$(date +"%Y-%m-%d" -d "$data_server")
+data_ip="${REPOKU}/registrasi.txt"
+
+# FUNCTIONKU
+garis(){ echo -e " $U$*$N"; }
+judul(){ echo -e " $O$*$N"; }
+tebal(){ echo -e " $W$*$N"; }
+tulis(){ echo -e " $N$*$N"; }
+checking_sc() { useexp=$(curl -sS "$data_ip" | grep "$ipsaya" | awk '{print $3}'); [[ "$date_list" > "$useexp" ]] && { systemctl stop nginx kyt xray ws-stunnel; dilarang; exit 1; }; }
+checking_sc
+
+gogotop() {
+    install_gotop() { echo "Menginstal gotop..."; wget https://github.com/cjbassi/gotop/releases/download/3.0.0/gotop_3.0.0_linux_amd64.deb && dpkg -i gotop_3.0.0_linux_amd64.deb && rm -f gotop_3.0.0_linux_amd64.deb; }
+    run_gotop() { gotop; }; if ! command -v gotop &> /dev/null; then install_gotop; fi; trap "exec menu" SIGINT SIGTERM EXIT; run_gotop
+}
+
+hhtop() { trap "exec menu" SIGINT SIGTERM EXIT; htop; }
+salahboss() { echo -e "  ${R}Salah BOSS!${N}"; sleep 0.5; exec "$0"; }
+kemenu() { [[ $0 == *menu ]] && exec menu2 || exec menu; }
+
+# MENU HABIS REBOOT/BOOTING
+clear
+echo
+garis "╭═══════════════════════════════════════════════════╮"
+garis "│${N} ${O}           ◈ MENU UTAMA SAAT BOOTING ◈           ${N}${U} │"
+garis "╰═══════════════════════════════════════════════════╯"
+garis "╭══════════════════ ${W}● LIST MENU ●${U} ══════════════════╮"
+garis "│ ${W}[${U}01${W}] ${U}●${W} SSH-WS    (${U}Menu${W}) ${U}│ ${W}[${U}05${W}] ${U}●${W} GOTOP     (${U}Menu${W}) ${U}│"
+garis "│ ${W}[${U}02${W}] ${U}●${W} VMESS     (${U}Menu${W}) ${U}│ ${W}[${U}06${W}] ${U}●${W} HTOP      (${U}Menu${W}) ${U}│"
+garis "│ ${W}[${U}03${W}] ${U}●${W} VLESS     (${U}Menu${W}) ${U}│ ${W}[${U}07${W}] ${U}●${W} MENU      (${U}Menu${W}) ${U}│"
+garis "│ ${W}[${U}04${W}] ${U}●${W} TROJAN    (${U}Menu${W}) ${U}│ ${W}[${U}08${W}] ${U}●${W} CLEAN     (${U}Menu${W}) ${U}│"
+garis "╰═════════════════════════┴═════════════════════════╯"
+echo -ne "  ${W}Pilih ${U}1${W} - ${U}8${W} : "; read input
+case $input in
+    1) exec m-sshovpn ;;
+    2) exec m-vmess ;;
+    3) exec m-vless ;;
+    4) exec m-trojan ;;
+    5) gogotop ;;
+    6) hhtop ;;
+    7) kemenu ;;
+    8) exec a ;;
+    19) exec pindahmenu ;;
+    *) salahboss ;;
+esac
+exit 0
+

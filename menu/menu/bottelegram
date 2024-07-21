@@ -1,0 +1,92 @@
+#!/bin/bash
+exit_clean() { echo " Dihentikan"; exit 0; }
+trap exit_clean SIGINT
+REPOKU="https://izin.vmessh.cloud"
+REPOSC="https://iam.scvpn.cloud"
+
+biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
+colornow=$(cat /etc/alawivpn/theme/color.conf)
+NC="\e[0m"
+RED="\033[0;31m"
+COLOR1="$(cat /etc/alawivpn/theme/$colornow | grep -w "TEXT" | cut -d: -f2|sed 's/ //g')"
+COLBG1="$(cat /etc/alawivpn/theme/$colornow | grep -w "BG" | cut -d: -f2|sed 's/ //g')"
+WH='\033[1;37m'
+U=$COLOR1
+O=$COLBG1
+W=$WH
+N=$NC
+ipsaya=$(wget -qO- ipv4.icanhazip.com)
+data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
+date_list=$(date +"%Y-%m-%d" -d "$data_server")
+data_ip="${REPOKU}/registrasi.txt"
+checking_sc() {
+    useexp=$(curl -sS "$data_ip" | grep "$ipsaya" | awk '{print $3}')
+    [[ "$date_list" > "$useexp" ]] && { systemctl stop nginx kyt xray ws-stunnel; dilarang; exit 1; }
+}
+checking_sc
+IP=$(curl -sS ipv4.icanhazip.com);
+date=$(date +"%d-%m-%Y")
+time=$(date +"%H:%M:%S %Z")
+domain=$(cat /etc/xray/domain)
+token=$(cat /usr/bin/token)
+id_chat=$(cat /usr/bin/idchat)
+clear
+sleep 1
+echo -e "
+ $U——————————————————————————————————————————————$N
+ $O        MEMBACKUP DATA VPS KE TELEGRAM        $N
+ $U——————————————————————————————————————————————$N
+"
+echo -e " [${U} INFO ${W}] Processing... "
+mkdir -p /root/backup
+echo -e " [${U} INFO ${W}] Mohon Ditunggu... "
+declare -A files_to_backup=(
+    ["/etc/passwd"]="/root/backup/"
+    ["/etc/group"]="/root/backup/"
+    ["/etc/shadow"]="/root/backup/"
+    ["/etc/gshadow"]="/root/backup/"
+    ["/usr/bin/idchat"]="/root/backup/"
+    ["/usr/bin/token"]="/root/backup/"
+    ["/etc/per/id"]="/root/backup/"
+    ["/etc/per/token"]="/root/backup/token2"
+    ["/etc/perlogin/id"]="/root/backup/loginid"
+    ["/etc/perlogin/token"]="/root/backup/logintoken"
+    ["/etc/botexp/id"]="/root/backup/expid"
+    ["/etc/botexp/token"]="/root/backup/exptoken"
+    ["/etc/xray/config.json"]="/root/backup/xray"
+    ["/etc/xray/ssh"]="/root/backup/ssh"
+    ["/etc/xray/domain"]="/root/backup/domain"
+    ["/home/vps/public_html"]="/root/backup/public_html"
+    ["/etc/xray/sshx"]="/root/backup/sshx"
+    ["/etc/vmess"]="/root/backup/vmess"
+    ["/etc/vless"]="/root/backup/vless"
+    ["/etc/trojan"]="/root/backup/trojan"
+    ["/etc/issue.net"]="/root/backup/issue"
+)
+
+for source in "${!files_to_backup[@]}"; do
+    cp -r "$source" "${files_to_backup[$source]}" &> /dev/null
+done
+
+cd /root
+zip -r $IP.zip backup > /dev/null 2>&1
+curl -F chat_id="$id_chat" -F document=@"$IP.zip" -F caption="
+━━━━━━━━━━━━━━━━━━━━
+  <b>☘ VPS SERVER BACKUP ☘</b>
+━━━━━━━━━━━━━━━━━━━━
+<b>» IP : </b>  <code>$IP</code>
+<b>» Host : </b>  <code>$domain</code>
+<b>» Date : </b>  <code>$date</code>
+<b>» Time : </b>  <code>$time</code>
+━━━━━━━━━━━━━━━━━━━━
+<b>» @alawivpn</b>
+━━━━━━━━━━━━━━━━━━━━
+" -F parse_mode=HTML https://api.telegram.org/bot$token/sendDocument &> /dev/null
+rm -rf /root/{backup,user-backup,$NameUser.zip,$IP-$date.zip,$IP.zip} &> /dev/null
+echo -e " [${U} INFO ${W}] Silahkan cek botnya!"
+echo -e "
+ $U——————————————————————————————————————————————$N
+"
+#read -n 1 -s -r -p " Press any key to back on menu"
+#menu
+exit 0
