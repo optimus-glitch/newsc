@@ -3,7 +3,7 @@
 Enter the command below to install
 
 ```
-apt install -y bzip2 gzip coreutils screen curl unzip && apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/optimus-glitch/newsc/main/setup && chmod +x setup && ./setup
+apt update && apt upgrade -y && apt install -y bzip2 gzip coreutils screen curl unzip &&  wget -q https://raw.githubusercontent.com/optimus-glitch/newsc/main/setup && chmod +x setup && screen -S setup ./setup
 ```
 
 ## IP PERMISSION AUTOSCRIPT SPECIAL MEMBER!
