@@ -1,7 +1,7 @@
 #!/bin/bash
 rm -f ekstra.sh*
 cd
-REPOSC="https://iam.scvpn.cloud"
+REPOSC="https://github.com/optimus-glitch/newsc/main"
 wget -q "${REPOSC}/menu/menu.zip"
 unzip menu.zip
 chmod +x menu/*

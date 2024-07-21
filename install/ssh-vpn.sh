@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # ==================================================
-REPOSC="https://iam.scvpn.cloud"
+REPOSC="https://github.com/optimus-glitch/newsc/main"
 junc0() { rm -rf $0; exit 0; }
 trap junc0 SIGINT
 trap junc0 SIGTERM

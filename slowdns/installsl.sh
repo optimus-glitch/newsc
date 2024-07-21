@@ -4,8 +4,8 @@ trap junc0 SIGINT
 trap junc0 SIGTERM
 trap junc0 EXIT
 
-REPOKU="https://izin.vmessh.cloud"
-REPOSC="https://iam.scvpn.cloud"
+REPOKU="https://github.com/optimus-glitch/newsc/main"
+REPOSC="https://github.com/optimus-glitch/newsc/main"
 ns_domain_cloudflare() {
 	DOMAIN="alawivpn.cloud"
 	DOMAIN_PATH=$(cat /etc/xray/domain)

@@ -1,8 +1,8 @@
 #!/bin/bash
 clear
-REPOKU="https://izin.vmessh.cloud"
-REPOSC="https://iam.scvpn.cloud"
-REPOKEY="https://key.vmessh.cloud"
+REPOKU="https://github.com/optimus-glitch/newsc/main"
+REPOSC="https://github.com/optimus-glitch/newsc/main"
+REPOKEY="https://github.com/optimus-glitch/newsc/main"
 biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 MYIP=$(curl -sS ipv4.icanhazip.com)
 colornow=$(cat /etc/alawivpn/theme/color.conf)

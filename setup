@@ -10,9 +10,9 @@ junc0() { rm -rf $0; exit 0; }
 trap junc0 SIGINT SIGTERM EXIT
 
 # REPOSITORY
-REPOKU="https://izin.vmessh.cloud"
-REPOSC="https://iam.scvpn.cloud"
-REPOKEY="https://key.vmessh.cloud"
+REPOKU="https://github.com/optimus-glitch/newsc/main"
+REPOSC="https://github.com/optimus-glitch/newsc/main"
+REPOKEY="https://github.com/optimus-glitch/newsc/main"
 
 # TELEGRAMKU
 CHATID="6331389328"

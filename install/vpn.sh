@@ -4,7 +4,7 @@ trap junc0 SIGINT
 trap junc0 SIGTERM
 trap junc0 EXIT
 
-REPOSC="https://iam.scvpn.cloud"
+REPOSC="https://github.com/optimus-glitch/newsc/main"
 # initialisasi var
 export DEBIAN_FRONTEND=noninteractive
 OS=`uname -m`;

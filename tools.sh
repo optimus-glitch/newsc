@@ -1,6 +1,7 @@
 #!/bin/bash
 clear
-REPOSC="https://iam.scvpn.cloud"
+# REPOSC="https://github.com/optimus-glitch/newsc/main"
+REPOSC="https://github.com/optimus-glitch/newsc/main"
 red='\e[1;31m'
 green2='\e[1;32m'
 yell='\e[1;33m'
@@ -13,7 +14,6 @@ W='\e[1;37m'
 green "              Menginstall tools penting!"
 sleep 0.5
 green "                   Proses dimulai..."
-sleep 0.5
 apt update -y
 apt upgrade -y
 apt dist-upgrade -y
@@ -54,11 +54,8 @@ vnstat -u -i $NET
 sed -i 's/Interface "'""eth0""'"/Interface "'""$NET""'"/g' /etc/vnstat.conf
 chown vnstat:vnstat /var/lib/vnstat -R
 systemctl enable vnstat
-/etc/init.d/vnstat restart
 rm -f /root/vnstat-2.6.tar.gz
 rm -rf /root/vnstat-2.6
-
 green "Dependencies successfully installed..."
 sleep 1
-clear
 rm -f $0
