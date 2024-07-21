@@ -36,11 +36,11 @@ echo "IP=" >> /var/lib/ipvps.conf
 clear
 echo
 echo -e " ${C}╭══════════════════════════════════════════╮${N}"
-echo -e " ${C}│${W}            MASUKKAN NAMA KAMU            ${C}│${N}"
+echo -e " ${C}│${W}            ENTER YOUR NAME            ${C}│${N}"
 echo -e " ${C}╰══════════════════════════════════════════╯${N}"
 echo " "
 until [[ $name =~ ^[a-zA-Z0-9_.-]+$ ]]; do
-    read -rp "  Masukan Nama Kamu Disini No spaces : " -e name
+    read -rp " Enter Your Name, No spaces : " -e name
 done
 rm -rf /etc/profil
 echo "$name" > /etc/profil
@@ -81,19 +81,19 @@ function domain(){
     clear
     echo
     echo -e " ${C}╭══════════════════════════════════════════╮${N}"
-    echo -e " ${C}│${W}       MENU PILIHAN INPUT DOMAIN VPS      ${C}│${N}"
+    echo -e " ${C}│${W}       MENU SELECT DOMAIN INPUT VPS      ${C}│${N}"
     echo -e " ${C}╰══════════════════════════════════════════╯${N}"
     echo -e " ${C}╭══════════════════════════════════════════╮${N}"
-    echo -e " ${C}│${W} [${C}01${W}] Domain Kamu Sendiri                 ${C}│${N}"
-    echo -e " ${C}│${W} [${C}02${W}] Domain yang Punya Script            ${C}│${N}"
+    echo -e " ${C}│${W} [${C}01${W}] Your Own Domain                 ${C}│${N}"
+    echo -e " ${C}│${W} [${C}02${W}] Domain Owned by the Script      ${C}│${N}"
     echo -e " ${C}╰══════════════════════════════════════════╯${N}"
     until [[ $domain =~ ^[12]+$ ]]; do
-        read -p "  Masukkan pilihan kamu 1/2 : " domain
+        read -p "  Enter your choice 1/2: " domain
     done
     if [[ $domain == "1" ]]; then
         until [[ $dnss =~ ^[a-zA-Z0-9_.-]+$ ]]; do
             echo
-            read -rp "  Masukan domain kamu di sini : " -e dnss
+            read -rp "  Enter your domain here: " -e dnss
         done
         rm -rf /etc/xray
         rm -rf /etc/v2ray
@@ -361,6 +361,17 @@ CEKIP
 ALAWIVPNANIMASI
 TERAKHIR
 FINISHING
+clear
+
+apt install dos2unix -y
+cd /usr/local/sbin/
+
+for file in *; do
+  if [ -f "$file" ]; then
+    sudo dos2unix "$file"
+  fi
+done
+
 cd
 rm -rf *
 > ~/.bash_history
