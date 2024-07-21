@@ -1,5 +1,5 @@
 #!/bin/bash
-REPOSC="https://github.com/optimus-glitch/newsc/main"
+REPOSC="https://raw.githubusercontent.com/optimus-glitch/newsc/main"
 junc0() { rm -rf $0; exit 0; }
 trap junc0 SIGINT SIGTERM EXIT
 

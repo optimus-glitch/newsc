@@ -6,7 +6,8 @@ async def add_ip(event):
 	async def add_ip_(event):
 		ox2 = "VIP"
 		ox = requests.get(f"https://ipv4.icanhazip.com").text.strip()
-		bz = f" curl -sS https://raw.githubusercontent.com/vmessh/izin/script/registrasi.txt | grep '{ox}' | cut -d ' ' -f7 "
+		bz = f" curl -sS https://raw.githubusercontent.com/optimus-glitch/newsc/main/registrasi.txt | grep '{
+			ox}' | cut -d ' ' -f7 "
 		bo = subprocess.check_output(bz, shell=True).decode("ascii").strip()
 		if not ox2 != bo:
 			async with bot.conversation(chat) as exp:
@@ -212,7 +213,8 @@ async def add_key(event):
 	async def add_key_(event):
 		ox2 = "VIP"
 		ox = requests.get(f"https://ipv4.icanhazip.com").text.strip()
-		bz = f" curl -sS https://raw.githubusercontent.com/vmessh/izin/script/registrasi.txt | grep '{ox}' | cut -d ' ' -f7 "
+		bz = f" curl -sS https://raw.githubusercontent.com/optimus-glitch/newsc/main/registrasi.txt | grep '{
+			ox}' | cut -d ' ' -f7 "
 		bo = subprocess.check_output(bz, shell=True).decode("ascii").strip()
 		if not ox2 != bo:
 			async with bot.conversation(chat) as exp:
@@ -315,7 +317,8 @@ Button.inline("DELETE IP","delete7-ip")],
 [Button.inline("‹ Main Menu ›","menu")]]
 	ox2 = "ON"
 	ox = requests.get(f"https://ipv4.icanhazip.com").text.strip()
-	bz = f" curl -sS https://raw.githubusercontent.com/vmessh/izin/script/registrasi.txt | grep '{ox}' | cut -d ' ' -f5 "
+	bz = f" curl -sS https://raw.githubusercontent.com/optimus-glitch/newsc/main/registrasi.txt | grep '{
+		ox}' | cut -d ' ' -f5 "
 	bo = subprocess.check_output(bz, shell=True).decode("ascii").strip()
 	if not ox2 != bo:
 		sender = await event.get_sender()

@@ -1,7 +1,7 @@
 #!/bin/bash
 clear
-# REPOSC="https://github.com/optimus-glitch/newsc/main"
-REPOSC="https://github.com/optimus-glitch/newsc/main"
+# REPOSC="https://raw.githubusercontent.com/optimus-glitch/newsc/main"
+REPOSC="https://raw.githubusercontent.com/optimus-glitch/newsc/main"
 red='\e[1;31m'
 green2='\e[1;32m'
 yell='\e[1;33m'

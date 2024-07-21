@@ -2,8 +2,8 @@
 exit_clean() { echo " Dihentikan"; exit 0; }
 trap exit_clean SIGINT
 engkok=$0
-REPOKU="https://github.com/optimus-glitch/newsc/main"
-REPOSC="https://github.com/optimus-glitch/newsc/main"
+REPOKU="https://raw.githubusercontent.com/optimus-glitch/newsc/main"
+REPOSC="https://raw.githubusercontent.com/optimus-glitch/newsc/main"
 colornow=$(cat /etc/alawivpn/theme/color.conf)
 export N='\e[0m'
 export R='\e[1;31m'

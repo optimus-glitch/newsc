@@ -1,8 +1,8 @@
 #!/bin/bash
 exit_clean() { echo " Dihentikan"; exit 0; }
 trap exit_clean SIGINT
-REPOKU="https://github.com/optimus-glitch/newsc/main"
-REPOSC="https://github.com/optimus-glitch/newsc/main"
+REPOKU="https://raw.githubusercontent.com/optimus-glitch/newsc/main"
+REPOSC="https://raw.githubusercontent.com/optimus-glitch/newsc/main"
 biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 colornow=$(cat /etc/alawivpn/theme/color.conf)
 export N='\e[0m'
