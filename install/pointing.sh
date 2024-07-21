@@ -106,7 +106,7 @@ TEXT="
 <code>IP VPS    :</code> <code>${IP1}</code>
 ────────────────────
 <b>    ☘ ALAWI-VPN-SCRIPT ☘</b>
-"&reply_markup={"inline_keyboard":[[{"text":"TELEGRAM","url":"https://t.me/alawivpn"}]]}"
+"&reply_markup={"inline_keyboard":[[{"text":"TELEGRAM","url":"https://t.me/darkanonc"}]]}"
 
 curl -s --max-time ${TIMES} -d "chat_id=${CHATID}&disable_web_page_preview=1&text=${TEXT}&parse_mode=html" ${URL} >/dev/null
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Baris yang akan ditambahkan
-trap_line='exit_clean() { echo " Dihentikan"; exit 0; }'
+trap_line='exit_clean() { echo " Stopped"; exit 0; }'
 trap_setup='trap exit_clean SIGINT'
 
 # Fungsi untuk menambahkan baris ke setiap file dalam folder

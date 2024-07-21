@@ -396,7 +396,7 @@ WantedBy=multi-user.target
 EOF
 cat > /etc/systemd/system/runn.service <<EOF
 [Unit]
-Description=t.me/alawivpn
+Description=t.me/darkanonc
 After=network.target
 
 [Service]

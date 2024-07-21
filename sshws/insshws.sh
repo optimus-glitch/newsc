@@ -10,7 +10,7 @@ chmod +x /usr/local/bin/ws-dropbear
 cat > /etc/systemd/system/ws-nontls.service << END
 [Unit]
 Description=Python Proxy Decode by AlawiVPN
-Documentation=https://t.me/alawivpn
+Documentation=https://t.me/darkanonc
 After=network.target nss-lookup.target
 
 [Service]
@@ -38,7 +38,7 @@ chmod +x /usr/local/bin/ws-ovpn
 cat > /etc/systemd/system/ws-ovpn.service << END
 [Unit]
 Description=Python Proxy Decode by AlawiVPN
-Documentation=https://t.me/alawivpn
+Documentation=https://t.me/darkanonc
 After=network.target nss-lookup.target
 
 [Service]
@@ -65,7 +65,7 @@ chmod +x /usr/local/bin/ws-stunnel
 cat > /etc/systemd/system/ws-stunnel.service << END
 [Unit]
 Description=Python Proxy Decode by AlawiVPN
-Documentation=https://t.me/alawivpn
+Documentation=https://t.me/darkanonc
 After=network.target nss-lookup.target
 
 [Service]

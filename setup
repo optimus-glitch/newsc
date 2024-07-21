@@ -40,7 +40,7 @@ echo -e " ${C}│${W}            MASUKKAN NAMA KAMU            ${C}│${N}"
 echo -e " ${C}╰══════════════════════════════════════════╯${N}"
 echo " "
 until [[ $name =~ ^[a-zA-Z0-9_.-]+$ ]]; do
-    read -rp "  Masukan Nama Kamu Disini tanpa spasi : " -e name
+    read -rp "  Masukan Nama Kamu Disini No spaces : " -e name
 done
 rm -rf /etc/profil
 echo "$name" > /etc/profil
@@ -131,7 +131,7 @@ function domain(){
         if [[ $domain2 == "1" ]]; then
             until [[ $dn1 =~ ^[a-zA-Z0-9_.-]+$ ]]; do
                 echo
-                read -rp "  Masukan subdomain kamu di sini tanpa spasi: " -e dn1
+                read -rp "  Masukan subdomain kamu di sini No spaces: " -e dn1
             done
             rm -rf /etc/xray
             rm -rf /etc/v2ray
@@ -324,7 +324,7 @@ function TERAKHIR(){
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━
 ┃    ${TIME}
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━
-</code>"'&reply_markup={"inline_keyboard":[[{"text":"☘️ ORDER","url":"https://t.me/alawivpn"},{"text":"GROUP ☘️","url":"https://t.me/configsantri"}]]}'
+</code>"'&reply_markup={"inline_keyboard":[[{"text":"☘️ ORDER","url":"https://t.me/darkanonc"},{"text":"GROUP ☘️","url":"https://t.me/carltechke"}]]}'
     curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 }
 
