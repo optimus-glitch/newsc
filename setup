@@ -123,7 +123,7 @@ function domain(){
         echo -e " ${C}│${W}     MENU PILIHAN DOMAIN BAWAAN SCRIPT    ${C}│${N}"
         echo -e " ${C}╰══════════════════════════════════════════╯${N}"
         echo -e " ${C}╭══════════════════════════════════════════╮${N}"
-        echo -e " ${C}│${W} [${C}01${W}] Domain sub.sshserver.my.id          ${C}│${N}"
+        echo -e " ${C}│${W} [${C}01${W}] Domain sub.darkanon.tech          ${C}│${N}"
         echo -e " ${C}╰══════════════════════════════════════════╯${N}"
         until [[ $domain2 =~ ^[1-5]+$ ]]; do
             read -p "  Masukkan pilihan angka 1 : " domain2
