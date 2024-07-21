@@ -1,0 +1,328 @@
+#!/bin/bash
+exit_clean() { echo " Dihentikan"; exit 0; }
+trap exit_clean SIGINT
+REPOKU="https://raw.githubusercontent.com/optimus-glitch/newsc/main"
+REPOSC="https://raw.githubusercontent.com/optimus-glitch/newsc/main"
+biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
+colornow=$(cat /etc/alawivpn/theme/color.conf)
+export NC="\e[0m"
+export Y='\033[0;33m';
+export COLOR1="$(cat /etc/alawivpn/theme/$colornow | grep -w "TEXT" | cut -d: -f2|sed 's/ //g')"
+export COLBG1="$(cat /etc/alawivpn/theme/$colornow | grep -w "BG" | cut -d: -f2|sed 's/ //g')"
+WH='\033[1;37m'
+U=$COLOR1
+O=$COLBG1
+W=$WH
+N=$NC
+R='\e[1;91m'
+G='\e[1;32m'
+ipsaya=$(curl -sS ipv4.icanhazip.com)
+data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
+date_list=$(date +"%Y-%m-%d" -d "$data_server")
+data_ip="${REPOKU}/registrasi.txt"
+checking_sc() {
+    useexp=$(curl -sS "$data_ip" | grep "$ipsaya" | awk '{print $3}')
+    [[ "$date_list" > "$useexp" ]] && { systemctl stop nginx kyt xray ws-stunnel; dilarang; exit 1; }
+}
+checking_sc
+clear
+# FUNCTIONKU
+garis(){ echo -e "$U$*$N"; }
+judul(){ echo -e "$O$*$N"; }
+tebal(){ echo -e "$W$*$N"; }
+tulis(){ echo -e "$N$*$N"; }
+author=$(cat /etc/profil)
+lebar=50
+judul="$author"
+penyamaan() {
+    lebar_judul=${#judul}
+    peluasan=$(( (lebar - lebar_judul) /2 -1 ))
+    padding=""
+    for ((i=0; i<peluasan; i++)); do
+        padding+=" "
+    done
+}
+cetak_judul(){
+    penyamaan
+    if (( lebar_judul % 2 == 1 )); then
+        printf " $U%s$N%s$W%s$N%s$U%s$N\n" "│" "$padding" "$judul" "$padding " "│"
+    else
+        printf " $U%s$N%s$W%s$N%s$U%s$N\n" "│" "$padding" "$judul" "$padding" "│"
+    fi
+}
+
+function jamhabis(){
+    clear
+    rm -rf /etc/cron.d/autobackup
+    rm -rf /etc/cron.d/bckp_otm
+    rm -rf /etc/jam
+    Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
+    Info="${Green_font_prefix}[ON]${Font_color_suffix}"
+    Error="${Red_font_prefix}[OFF]${Font_color_suffix}"
+    cek=$(grep -c -E "^# Autobackup" /etc/cron.d/autobackup)
+    if [[ "$cek" = "1" ]]; then
+        sts="${Info}"
+    else
+        sts="${Error}"
+    fi
+    echo -e "${U}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${N}"
+    echo -e "${U}${N}${O}             AUTO BACKUP          ${N}${U}${N}"
+    echo -e "${U}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${N}"
+    echo -e "Status Auto Backup : $sts        "
+    echo -e ""
+    echo -e "[1]  AutoBackup After 30 Minutes"
+    echo -e "[2]  AutoBackup After 60 Minutes"
+    echo -e "[3]  AutoBackup After 120 Minutes"
+    echo -e "[4]  AutoBackup After 180 Minutes"
+    echo -e "[5]  AutoBackup After 240 Minutes"
+    echo -e "[6]  Turn Off Auto  Backup"
+    echo ""
+    echo -e "${U}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${N}"
+    echo -e ""
+    read -p "Select From Options [1-4 or x] :  " backup
+    if [ -z $backup ]; then
+        jamhabis
+    fi
+    echo -e ""
+    case $backup in
+        1)
+            echo -e ""
+            sleep 1
+            clear
+            echo > /etc/cron.d/autobackup
+            echo "# Autobackup" >/etc/cron.d/autobackup
+            echo "PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin" >>/etc/cron.d/autobackup
+            echo "*/30 * * * *  root /usr/local/sbin/bottelegram" >>/etc/cron.d/autobackup
+            echo -e ""
+            echo -e "======================================"
+            echo -e ""
+            echo -e "      AutoBackup Every     : 30 Minutes"
+            echo -e ""
+            echo -e "======================================"
+            service cron restart >/dev/null 2>&1
+            service cron reload >/dev/null 2>&1
+            ;;
+        2)
+            echo -e ""
+            sleep 1
+            clear
+            echo > /etc/cron.d/autobackup
+            echo "# Autobackup" >/etc/cron.d/autobackup
+            echo "PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin" >>/etc/cron.d/autobackup
+            echo "*/60 * * * *  root /usr/local/sbin/bottelegram" >>/etc/cron.d/autobackup
+            echo -e ""
+            echo -e "======================================"
+            echo -e ""
+            echo -e "      AutoBackup Every     : 60 Minutes"
+            echo -e ""
+            echo -e "======================================"
+            service cron restart >/dev/null 2>&1
+            service cron reload >/dev/null 2>&1
+            ;;
+        3)
+            echo -e ""
+            sleep 1
+            clear
+            echo > /etc/cron.d/autobackup
+            echo "# Autobackup" >/etc/cron.d/autobackup
+            echo "PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin" >>/etc/cron.d/autobackup
+            echo "*/120 * * * *  root /usr/local/sbin/bottelegram" >>/etc/cron.d/autobackup
+            echo -e ""
+            echo -e "======================================"
+            echo -e ""
+            echo -e "      AutoBackup Every     : 120 Minutes"
+            echo -e ""
+            echo -e "======================================"
+            service cron restart >/dev/null 2>&1
+            service cron reload >/dev/null 2>&1
+            ;;
+        4)
+            echo -e ""
+            sleep 1
+            clear
+            echo > /etc/cron.d/autobackup
+            echo "# Autobackup" >/etc/cron.d/autobackup
+            echo "PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin" >>/etc/cron.d/autobackup
+            echo "*/180 * * * *  root /usr/local/sbin/bottelegram" >>/etc/cron.d/autobackup
+            echo -e ""
+            echo -e "======================================"
+            echo -e ""
+            echo -e "      AutoBackup Every     : 180 Minutes"
+            echo -e ""
+            echo -e "======================================"
+            service cron restart >/dev/null 2>&1
+            service cron reload >/dev/null 2>&1
+            ;;
+        5)
+            echo -e ""
+            sleep 1
+            clear
+            echo > /etc/cron.d/autobackup
+            echo "# Autobackup" >/etc/cron.d/autobackup
+            echo "PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin" >>/etc/cron.d/autobackup
+            echo "*/240 * * * *  root /usr/local/sbin/bottelegram" >>/etc/cron.d/autobackup
+            echo -e ""
+            echo -e "======================================"
+            echo -e ""
+            echo -e "      AutoBackup Every     : 240 Minutes"
+            echo -e ""
+            echo -e "======================================"
+            service cron restart >/dev/null 2>&1
+            service cron reload >/dev/null 2>&1
+            ;;
+        6)
+            clear
+            rm /etc/cron.d/autobackup
+            echo -e ""
+            echo -e "======================================"
+            echo -e ""
+            echo -e "      Auto Backup Turned Off  "
+            echo -e ""
+            echo -e "======================================"
+            service cron restart >/dev/null 2>&1
+            service cron reload >/dev/null 2>&1
+            ;;
+        x)
+            clear
+            exec menu && exit 0
+            ;;
+    esac
+}
+
+# jam2
+function jam2(){
+    clear
+    rm -rf /etc/cron.d/autobackup
+    rm -rf /etc/jam
+    echo -e ""
+    garis "╭══════════════════════════════════════════╮"
+    garis "│ ${Y} Isi angka saja!${W}, Contoh: ${G}2${W} untuk ${G}2 Jam${U}  │"
+    garis "╰══════════════════════════════════════════╯"
+    echo
+    read -p " Silahkan tulis jam auto backup nya : " jam2
+    echo "$jam2" > /etc/jam2
+    echo ""
+    jam2=$(cat /etc/jam2)
+    cat > /etc/cron.d/autobackup <<-END
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+10 */${jam2} * * * root /usr/local/sbin/bottelegram
+END
+    service cron restart >/dev/null 2>&1
+    service cron reload >/dev/null 2>&1
+    echo -e " Auto Backup Tiap ${G}${jam2} ${N}JAM"
+    echo -e ""
+}
+
+# jam
+function jam(){
+    clear
+    rm -rf /etc/cron.d/autobackup
+    rm -rf /etc/jam
+    echo -e ""
+    garis "╭══════════════════════════════════════════╮"
+    garis "│${W} Format: ${G}4${W} = jam ${G}4 pagi${W}, ${G}20${W} = jam ${G}8 malam ${U}│"
+    garis "╰══════════════════════════════════════════╯"
+    echo
+    read -p " Silahkan tulis jam auto backup nya : " jam
+    echo "$jam" > /etc/jam
+    echo ""
+    jam2=$(cat /etc/jam)
+    cat > /etc/cron.d/autobackup <<-END
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+10 ${jam2} * * * root /usr/local/sbin/bottelegram
+END
+    service cron restart >/dev/null 2>&1
+    service cron reload >/dev/null 2>&1
+    echo -e " Auto Backup Tiap ${G}${jam}:00${N} WIB"
+    echo -e ""
+}
+clear
+
+# autobackup
+function autobckpbot(){
+    clear
+    echo ""
+    echo -e "${U}╭══════════════════════════════════════════╮${N}"
+    echo -e "${U}│        ${W}Please select a your Choice       ${U}│${N}"
+    echo -e "${U}╰══════════════════════════════════════════╯${N}"
+    echo -e "${U}╭══════════════════════════════════════════╮${N}"
+    echo -e "${U}│ ${W}[${U}01${W}] ${U}● ${R}OFF${W} AUTO BACKUP                   ${U}│${N}"
+    echo -e "${U}│ ${W}[${U}02${W}] ${U}● ${G}ON ${W} AUTO BACKUP                   ${U}│${N}"
+    echo -e "${U}╰══════════════════════════════════════════╯${N}"
+    read -p " Please select numbers 1-2 or random : " bot
+    echo ""
+    if [[ $bot == "1" ]]; then
+        rm -rf /etc/cron.d/autobackup
+        rm -rf /etc/jam
+        echo -e  "Sukses OFF Auto Backup"
+        echo " "
+        read -n 1 -s -r -p " Press any key to back on menu"
+        exec menu && exit 0
+        clear
+    elif [[ $bot == "2" ]]; then
+        clear
+        echo
+        echo -e "${U}╭══════════════════════════════════════════╮${N}"
+        echo -e "${U}│        ${W}Please select a your Choice       ${U}│${N}"
+        echo -e "${U}╰══════════════════════════════════════════╯${N}"
+        echo -e "${U}╭══════════════════════════════════════════╮${N}"
+        echo -e "${U}│ ${W}[${U}01${W}] ${U}●${W} AUTO BACKUP TIAP JAM              ${U}│${N}"
+        echo -e "${U}│ ${W}[${U}02${W}] ${U}●${W} AUTO BACKUP TIAP HARI             ${U}│${N}"
+        echo -e "${U}╰══════════════════════════════════════════╯${N}"
+        read -p " Please select numbers 1-2 or Random : " bott
+        echo ""
+        if [[ $bott == "1" ]]; then
+            jam2
+        elif [[ $bott == "2" ]]; then
+            jam
+        fi
+        read -n 1 -s -r -p " Press any key to back on menu"
+        exec menu && exit 0
+        clear
+    else
+        exec menu && exit 0
+    fi
+}
+function mbot(){
+    cd
+    if [[ -e /usr/bin/token ]]; then
+        bottelegram
+    else
+        clear
+        echo -e ""
+        echo -e "${U} [ INFO ] ${W}Create for database Backup Telegram"
+        read -rp "Enter Token (Creat on @BotFather) : " -e token2
+        echo "$token2" > /usr/bin/token
+        read -rp "Enter Your Id (Creat on @userinfobot)  : " -e idchat
+        echo "$idchat" > /usr/bin/idchat
+        sleep 1
+        bottelegram
+    fi
+}
+clear
+author=$(cat /etc/profil)
+echo -e " ${U}╭════════════════════════════════════════════════╮${N}"
+echo -e " ${U}│ ${O}             ● BACKUP PANEL MENU ●            ${N}${U} │${N}"
+echo -e " ${U}╰════════════════════════════════════════════════╯${N}"
+echo -e " ${U}╭════════════════════════════════════════════════╮${N}"
+echo -e " ${U}│${W} [${U}01${W}] ${U}●${W} RESTORE VPS                             ${U}│${N}"
+echo -e " ${U}│${W} [${U}02${W}] ${U}●${W} BACKUP VPS VIA BOT TELEGRAM             ${U}│${N}"
+echo -e " ${U}│${W} [${U}03${W}] ${U}●${W} SET TIME AUTO BACKUP                    ${U}│${N}"
+echo -e " ${U}│${W} [${U}00${W}] ${U}●${W} BACK TO MENU                            ${U}│${N}"
+echo -e " ${U}╰════════════════════════════════════════════════╯${N}"
+echo -e " ${U}╭════════════════════ ${W}● BY ● ${U}════════════════════╮${N}"
+cetak_judul
+echo -e " ${U}╰════════════════════════════════════════════════╯${N}"
+echo -e ""
+echo -ne "  ${W}Select menu ${U}: ${W}"; read opt
+case $opt in
+    01 | 1) clear ; exec restore && exit 0 ;;
+    02 | 2) clear ; mbot && exit 0 ;;
+    03 | 3) clear ; autobckpbot && exit 0 ;;
+    00 | 0) clear ; exec menu && exit 0 ;;
+    *) echo -e "  ${R}Input is not valid!${N}" ; sleep 1 ; exec $0 ; exit 0 ;;
+    x) exit ;;
+esac
+exit 0

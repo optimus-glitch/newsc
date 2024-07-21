@@ -1,0 +1,65 @@
+#!/bin/bash
+# warna
+colornow=$(cat /etc/alawivpn/theme/color.conf)
+R='\033[1;31m'
+G='\033[1;32m'
+Y='\033[1;33m'
+C='\033[1;36m'
+W='\033[1;37m'
+N='\033[0m'
+U="$(cat /etc/alawivpn/theme/$colornow | grep -w "TEXT" | cut -d: -f2|sed 's/ //g')"
+clear
+garis() { echo -e " $U$*$N"; }
+tebal() { echo -e " $W$1$N"; }
+red() { echo -e " $R$1$N"; }
+tulis() { echo -e " $*$N"; }
+exit_clean() { echo -e " ${R}Dihentikan${N}"; exit 0; }
+trap exit_clean SIGINT
+kembali() { read -n 1 -s -r -p "  Press any key to back..."; exec $0; }
+restarting() { systemctl restart ssh dropbear ws-stunnel; }
+
+on_banner() {
+    if ! grep -q "^Banner /etc/issue.net" /etc/ssh/sshd_config; then
+        echo "Banner /etc/issue.net" >> /etc/ssh/sshd_config
+    fi
+
+    sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
+    restarting
+    tebal " Banner is ${G}ON${N}"
+    kembali
+}
+
+off_banner() {
+    sed -i '/^Banner \/etc\/issue.net/d' /etc/ssh/sshd_config
+    sed -i 's@DROPBEAR_BANNER="/etc/issue.net"@DROPBEAR_BANNER=""@g' /etc/default/dropbear
+    restarting
+    tebal " Banner is ${R}OFF${N}"
+    kembali
+}
+
+change_banner() {
+    nano /etc/issue.net
+
+    tebal " Banner ${G}successfully${W} changed${N}"
+    kembali
+}
+
+salah() { red " Input is not valid!"; sleep 1; exec $0; }
+
+garis "╭══════════════════════════════════════════╮"
+garis "│${W}              ON OFF BANNER               ${U}│"
+garis "╰══════════════════════════════════════════╯"
+garis "╭══════════════════════════════════════════╮"
+garis "│ ${W}[${U}01${W}] ${U}●${W} TURN ${G}ON${W} BANNER                    ${U}│"
+garis "│ ${W}[${U}02${W}] ${U}●${W} TURN ${R}OFF${W} BANNER                   ${U}│"
+garis "│ ${W}[${U}03${W}] ${U}●${W} CHANGE BANNER                     ${U}│"
+garis "│ ${W}[${U}00${W}] ${U}●${W} BACK TO MENU                      ${U}│"
+garis "╰══════════════════════════════════════════╯"
+echo -ne "  ${W}Choose the number: ${N}"; read option
+case $option in
+    1|01) on_banner ;;
+    2|02) off_banner ;;
+    3|03) change_banner ;;
+    0|00) exec menu ; exit 0 ;;
+    *) salah ;;
+esac

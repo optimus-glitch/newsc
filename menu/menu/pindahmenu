@@ -1,0 +1,9 @@
+#!/bin/bash
+cd
+cd /usr/local/sbin/
+
+mv menu2 menu9
+mv menu menu2
+mv menu9 menu
+cd
+exec menu

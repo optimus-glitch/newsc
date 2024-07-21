@@ -1,0 +1,75 @@
+#!/bin/bash
+exit_clean() { echo " Dihentikan"; exit 0; }
+trap exit_clean SIGINT
+clear
+REPOKU="https://raw.githubusercontent.com/optimus-glitch/newsc/main"
+REPOSC="https://raw.githubusercontent.com/optimus-glitch/newsc/main"
+biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
+colornow=$(cat /etc/alawivpn/theme/color.conf)
+NC="\e[0m"
+R="\033[1;31m"
+COLOR1="$(cat /etc/alawivpn/theme/$colornow | grep -w "TEXT" | cut -d: -f2|sed 's/ //g')"
+COLBG1="$(cat /etc/alawivpn/theme/$colornow | grep -w "BG" | cut -d: -f2|sed 's/ //g')"
+WH='\033[1;37m'
+Y='\e[0;33m'
+G='\e[1;32m'
+U=$COLOR1
+O=$COLBG1
+W=$WH
+N=${NC}
+ipsaya=$(wget -qO- ipv4.icanhazip.com)
+data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
+date_list=$(date +"%Y-%m-%d" -d "$data_server")
+data_ip="${REPOKU}/registrasi.txt"
+checking_sc() {
+    useexp=$(curl -sS "$data_ip" | grep "$ipsaya" | awk '{print $3}')
+    [[ "$date_list" > "$useexp" ]] && { systemctl stop nginx kyt xray ws-stunnel; dilarang; exit 1; }
+}
+checking_sc
+
+config_file="/etc/xray/config.json"
+
+[[ ! -f $config_file ]] && echo "File config.json tidak ditemukan!"; exec menu; exit 1
+
+# FUNGSIKU
+garis(){ echo -e " $U$*$N"; }
+judul(){ echo -e " $O$*$N"; }
+tebal(){ echo -e " $W$*$N"; }
+kembali(){ read -n 1 -s -r -p " Press any key to back on menu "; exec menu && exit 0; }
+
+# MULAI HEHE
+clear
+echo
+garis "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+judul "            GANTI UUID BY ALAWIVPN            "
+garis "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+tebal "Ketik ${G}x${W} untuk kembali ke menu"
+echo
+until [[ -n "$old_uuid" && $(grep -q "\"$old_uuid\"" "$config_file"; echo $?) -eq 0 ]]; do
+    echo -ne " ${N}Masukkan ${G}UUID${N} lama: ${G}"; read old_uuid
+    [[ $old_uuid == "x" ]] && kembali
+done
+
+until [[ -n "$new_uuid" && ! $(grep -q "\"$new_uuid\"" "$config_file"; echo $?) -eq 0 ]]; do
+    echo -ne " ${N}Masukkan ${G}UUID${N} baru: ${G}"; read new_uuid
+    [[ $new_uuid == "x" ]] && kembali
+done
+
+sed -i "s/$old_uuid/$new_uuid/g" $config_file
+
+systemctl restart xray
+
+if grep -q "$new_uuid" $config_file; then
+    clear
+    garis "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    judul "            PERGANTIAN UUID SUKSES!           "
+    garis "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    tebal "UUID Lama: ${G}$old_uuid"
+    tebal "UUID Baru: ${G}$new_uuid"
+    tebal "UUID ${G}berhasil${W} diganti!"
+    garis "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+else
+    echo " ${R}Gagal${N} mengganti UUID!"
+fi
+kembali
+exit 0

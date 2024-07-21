@@ -15,10 +15,8 @@ REPOSC="https://raw.githubusercontent.com/optimus-glitch/newsc/main"
 REPOKEY="https://raw.githubusercontent.com/optimus-glitch/newsc/main"
 
 # TELEGRAMKU
-CHATID="6331389328"
-CHATID="6331389328"
-TOKENBOT="7056544769:AAFLjBtNMc5Rj9IPOfJ7O_4PJ4H0IlvMg1o"
-TOKENBOT="7056544769:AAFLjBtNMc5Rj9IPOfJ7O_4PJ4H0IlvMg1o"
+CHATID="1187810967"
+TOKENBOT="6706814355:AAGykhsAUzJiK4Q4Zj84Xe77eyzS6Iuj-60"
 
 # cek cek vps dulu kak
 cd /root

@@ -94,7 +94,7 @@ echo -e "         Untuk ip ${biru}${IP}${NC}"
 echo -e ""
 
 TIMES="10"
-CHATID="6331389328"
+CHATID="1187810967"
 KEY="7104548532:AAHl8gN5J8tWqWnEKpgZFSTDRyuoHwt5bKw"
 URL="https://api.telegram.org/bot${KEY}/sendMessage"
 TIMEZONE=$(printf '%(%H:%M:%S)T')
