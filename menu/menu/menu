@@ -390,7 +390,7 @@ echo -e "$U │$W [${U}04${W}] ${U}●${W} TROJAN    (${U}Menu${W}) $U│$W [${U
 echo -e "$U │$W [${U}05${W}] ${U}●${W} RUNNING   (${U}Menu${W}) $U│$W [${U}10${W}] ${U}●${W} BACKUP    (${U}Menu${W}) $U│$N"
 echo -e "$U ╰═════════════════════════┴═════════════════════════╯$N"
 echo -e "$U ╭═══════════┬═══════════════════════════════════════╮$N"
-echo -e "$U │$W   Total   $U│$W   Daily       Yesterday       Monthly    $U│$N"
+echo -e "$U │$W   Total   $U│$W   Daily       Y'Day       Monthly   $U│$N"
 echo -e "$U │$W Bandwidth $U│$G   $(printf "%-11s %-12s %-10s %-4s\n" "$today_val" "$yesterday_val" "$month_val" "$U│$N")"
 echo -e "$U ╰═══════════┴═══════════════════════════════════════╯$N"
 echo -e "$U       ╭═══════════════════════════════════════╮$N"
